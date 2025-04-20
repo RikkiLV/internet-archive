@@ -15,7 +15,7 @@ class Fanfic(Base):
     __tablename__ = 'fanfics'
 
     id = Column(Integer, primary_key=True)
-    title = Column(string)
+    title = Column(String)
     author = Column(String)
     source = Column(String)
     story_id = Column(String)
