@@ -13,6 +13,13 @@ engine = get_engine()
 Session = sessionmaker(bind=engine)
 
 
+#######################################
+# Function: add_fanfic()
+# Description: Passes the all db fields
+# as parameters. Creates a session for 
+# adding all fields in the database.
+# Validates whether fanfic exists.
+#######################################
 def add_fanfic(title, author, source, story_id, filepath, summary=""):
     session = Session()
     try:
@@ -34,6 +41,12 @@ def add_fanfic(title, author, source, story_id, filepath, summary=""):
         session.close()
 
 
+#######################################
+# Function: get_fanfic_by_site_id()
+# Description: A function that query to 
+# grab a fanfic from the database by 
+# story_id.
+#######################################
 def get_fanfic_by_site_id(source, story_id):
     session = Session()
     fanfic = session.query(Fanfic).filter_by(source=source, story_id=story_id).first()
@@ -41,6 +54,11 @@ def get_fanfic_by_site_id(source, story_id):
     return fanfic
 
 
+#######################################
+# Function: list_fanfics()
+# Description: Function to query the list
+# all the fanfic in the database.
+#######################################
 def list_fanfics(source=None):
     session = Session()
     query = session.query(Fanfic)
@@ -51,6 +69,12 @@ def list_fanfics(source=None):
     return results
 
 
+#######################################
+# Function: update_last_checked()
+# Description: Function that filters
+# the db by story_id and checks on the 
+# datetime of the fanfic.
+#######################################
 def update_last_checked(source, story_id):
     session = Session()
     fanfic = session.query(Fanfic).filter_by(source=source, story_id=story_id).first()
@@ -60,6 +84,12 @@ def update_last_checked(source, story_id):
     session.close()
 
 
+#######################################
+# Function: delete_fanfic()
+# Description: Function that filters
+# the db by story_id and deletes the 
+# fanfic from the db.
+#######################################
 def delete_fanfic(source, story_id):
     session = Session()
     fanfic = session.query(Fanfic).filter_by(source=source, story_id=story_id).first()
@@ -69,6 +99,13 @@ def delete_fanfic(source, story_id):
     session.close()
 
 
+#######################################
+# Function: get_engine()
+# Description: Function that passes a
+# a searched term, which is filters
+# all fields to find the fanfic with
+# associated terms in the db. 
+#######################################
 def search_fanfics(term):
     session = Session()
     results = session.query(Fanfic).filter(
